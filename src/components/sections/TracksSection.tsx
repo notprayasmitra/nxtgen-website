@@ -123,7 +123,7 @@ const TracksSection = () => {
                       <h4 className="text-xl md:text-2xl font-bold text-white border-b border-white/20 pb-2">
                         What is {track.text}?
                       </h4>
-                      <p className="text-sm md:text-base text-white/90 leading-relaxed line-clamp-[10]">
+                      <p className="text-base md:text-lg text-white/90 leading-relaxed line-clamp-[10]">
                         {track.description}
                       </p>
                     </div>
