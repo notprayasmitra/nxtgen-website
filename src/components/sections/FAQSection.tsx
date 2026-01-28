@@ -85,7 +85,7 @@ export default function FAQSection() {
             <span className="text-white/90">FAQs</span>
           </h2>
 
-          <div className="space-y-4 max-w-3xl mx-auto">
+          <div className="space-y-6 max-w-3xl mx-auto">
             {faqs.map(faq => {
               const isOpen = openId === faq.id;
 
@@ -94,13 +94,15 @@ export default function FAQSection() {
                   key={faq.id}
                   layout
                   className="
-                    rounded-2xl
-                    bg-black/40 backdrop-blur-sm
-                    border border-white/10
-                    shadow-2xl shadow-black/50
+                    relative rounded-3xl
+                    bg-black/50 backdrop-blur-xl
+                    border-2 border-white/20
+                    shadow-2xl shadow-white/10
                     overflow-hidden
                     group
+                    before:absolute before:inset-0 before:bg-gradient-to-r before:from-white/5 before:to-transparent before:-skew-x-12 before:opacity-0 before:group-hover:opacity-100 before:group-hover:animate-shine before:transition-all before:duration-700
                   "
+                  style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7)' }}
                 >
                   {/* QUESTION BUTTON */}
                   <button
@@ -110,29 +112,31 @@ export default function FAQSection() {
                     aria-controls={`faq-answer-${faq.id}`}
                     className="
                       w-full
-                      min-h-[72px]
-                      px-6
+                      min-h-[80px]
+                      px-8 py-4
                       flex items-center justify-between
                       text-left
-                      text-base md:text-lg
+                      text-lg md:text-xl
                       font-bold
-                      text-white
+                      bg-gradient-to-r from-transparent via-white/10 to-transparent
+                      text-white drop-shadow-lg
                       focus:outline-none
-                      focus-visible:ring-2
-                      focus-visible:ring-white/50
-                      hover:bg-white/5
-                      transition-all duration-300
+                      focus-visible:ring-4 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-black/50
+                      hover:bg-white/20 hover:shadow-glow
+                      hover:border-white/40
+                      transition-all duration-500 ease-out
+                      group-hover:scale-[1.02]
                     "
                   >
-                    <span>{faq.question}</span>
+                    <span className="relative z-10">{faq.question}</span>
 
                     {/* CHEVRON */}
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.25 }}
-                      className="ml-4 text-white/70 group-hover:text-white transition-colors"
+                      className="ml-6 text-white group-hover:text-white/90 transition-all duration-300 shrink-0"
                     >
-                      <ChevronDown size={22} />
+                      <ChevronDown size={24} strokeWidth={2.5} />
                     </motion.span>
                   </button>
 
@@ -142,18 +146,20 @@ export default function FAQSection() {
                       <motion.div
                         id={`faq-answer-${faq.id}`}
                         key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: "easeInOut" }}
-                        className="px-6"
+                        initial={{ height: 0, opacity: 0, scaleY: 0.95 }}
+                        animate={{ height: "auto", opacity: 1, scaleY: 1 }}
+                        exit={{ height: 0, opacity: 0, scaleY: 0.95 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="overflow-hidden"
                       >
                         <div
                           className="
-                            pb-6
-                            text-sm md:text-base
-                            text-white/90
+                            px-8 pb-8 pt-4
+                            backdrop-blur-xl bg-black/60 border-t border-white/10
+                            text-base md:text-lg
+                            text-white/95
                             leading-relaxed
+                            tracking-wide
                           "
                         >
                           {faq.answer}
@@ -167,6 +173,18 @@ export default function FAQSection() {
           </div>
         </div>
       </div>
+
+      {/* Shine Animation */}
+      <style>{`
+        @keyframes shine {
+          0% { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+          50% { opacity: 1; }
+          100% { transform: translateX(120%) skewX(-12deg); opacity: 0; }
+        }
+        .shadow-glow {
+          box-shadow: 0 0 40px rgba(255, 255, 255, 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+        }
+      `}</style>
     </section>
   );
 }
