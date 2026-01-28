@@ -10,6 +10,7 @@ interface LocationMapProps {
   coordinates?: string;
   mapUrl?: string;
   className?: string;
+  layout?: "fixed" | "responsive" | "fill";
 }
 
 export function LocationMap({
@@ -17,6 +18,7 @@ export function LocationMap({
   coordinates = "37.7749° N, 122.4194° W",
   mapUrl,
   className,
+  layout = "fixed",
 }: LocationMapProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,6 +49,12 @@ export function LocationMap({
   };
 
   const handleClick = () => {
+    // In responsive layout (used in the Venue section), open the map directly.
+    if ((layout === "responsive" || layout === "fill") && mapUrl) {
+      window.open(mapUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
     if (isExpanded && mapUrl) {
       window.open(mapUrl, "_blank", "noopener,noreferrer");
       return;
@@ -57,7 +65,7 @@ export function LocationMap({
   return (
     <motion.div
       ref={containerRef}
-      className={`relative cursor-pointer select-none ${className || ""}`}
+      className={`relative cursor-pointer select-none ${layout === "fill" ? "h-full w-full" : ""} ${className || ""}`}
       style={{
         perspective: 1000,
       }}
@@ -67,21 +75,31 @@ export function LocationMap({
       onClick={handleClick}
     >
       <motion.div
-        className="relative overflow-hidden rounded-2xl bg-background border border-border"
+        className={`relative overflow-hidden rounded-2xl bg-background border border-border ${
+          layout === "responsive" ? "h-full aspect-[12/7] w-auto max-w-full" : ""
+        } ${layout === "fill" ? "h-full w-full" : ""}`}
         style={{
           rotateX: springRotateX,
           rotateY: springRotateY,
           transformStyle: "preserve-3d",
         }}
-        animate={{
-          width: isExpanded ? 720 : 480,
-          height: isExpanded ? 560 : 280,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 35,
-        }}
+        animate={
+          layout === "fixed"
+            ? {
+                width: isExpanded ? 720 : 480,
+                height: isExpanded ? 560 : 280,
+              }
+            : undefined
+        }
+        transition={
+          layout === "fixed"
+            ? {
+                type: "spring",
+                stiffness: 400,
+                damping: 35,
+              }
+            : undefined
+        }
       >
         <div className="absolute inset-0 bg-gradient-to-br from-muted/20 via-transparent to-muted/40" />
 

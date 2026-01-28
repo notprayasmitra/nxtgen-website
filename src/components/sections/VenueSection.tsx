@@ -72,18 +72,19 @@ const VenueSection = () => {
           />
         </h2>
 
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[2.2fr_1fr] gap-8 lg:gap-12 items-stretch lg:h-[700px]">
           {/* Left: Map */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex justify-center lg:justify-start"
+            className="relative h-full w-full"
           >
             <LocationMap
-              className="w-full max-w-[520px] lg:max-w-[560px]"
+              layout="fill"
+              className="h-full w-full rounded-2xl"
               location="IVB, Express Avenue, Chennai"
               coordinates="Chennai, Tamil Nadu"
               mapUrl="https://maps.app.goo.gl/8VFUnAmgvGFzqexj8"
@@ -91,7 +92,7 @@ const VenueSection = () => {
           </motion.div>
 
           {/* Right: Amenities (2x2) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-stretch">
+          <div className="grid h-full grid-cols-1 sm:grid-cols-2 grid-rows-2 gap-4 justify-items-stretch">
             {amenities.map((amenity) => (
               <HighlightCard
                 key={amenity.title}
@@ -104,7 +105,7 @@ const VenueSection = () => {
                 icon={amenity.icon}
                 color="darkPurple"
                 hideButton
-                className="w-full p-4"
+                className="w-full h-full p-4"
               />
             ))}
           </div>
