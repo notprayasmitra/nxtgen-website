@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ['Airstrike', 'sans-serif'],
-        body: ['Clash', 'sans-serif'],
+        body: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
         pixel: ['"Press Start 2P"', 'monospace'],
       },
       colors: {
