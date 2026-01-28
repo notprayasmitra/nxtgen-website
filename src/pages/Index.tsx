@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
+import BlurOverlay from "@/components/BlurOverlay";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import FaultyTerminal from "@/components/ui/FaultyTerminal";
 import Navbar from "@/components/Navbar";
@@ -153,6 +154,8 @@ const Index = () => {
           dpr={1}
         />
       </div>
+      {/* Blur overlay above background, below content */}
+      <BlurOverlay />
 
       {/* Navbar */}
       <Navbar />
