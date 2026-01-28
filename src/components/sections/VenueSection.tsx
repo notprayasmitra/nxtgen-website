@@ -59,7 +59,7 @@ const VenueSection = () => {
   return (
     <section id="venue" className="relative min-h-[70vh] md:min-h-screen py-16 md:py-20 px-4">
       <div className="container mx-auto">
-        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-4 md:whitespace-nowrap">
+        <h2 className="text-4xl sm:text-6xl md:text-8xl font-bold text-center mb-6 md:mb-10 md:whitespace-nowrap">
           <ShinyText
             text="Venue & Location"
             speed={2}
@@ -73,22 +73,25 @@ const VenueSection = () => {
         </h2>
 
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-start">
+          {/* Left: Map */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex justify-center"
+            className="flex justify-center lg:justify-start"
           >
             <LocationMap
+              className="w-full max-w-[520px] lg:max-w-[560px]"
               location="IVB, Express Avenue, Chennai"
               coordinates="Chennai, Tamil Nadu"
               mapUrl="https://maps.app.goo.gl/8VFUnAmgvGFzqexj8"
             />
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 justify-items-center">
+          {/* Right: Amenities (2x2) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-stretch">
             {amenities.map((amenity) => (
               <HighlightCard
                 key={amenity.title}
@@ -101,7 +104,7 @@ const VenueSection = () => {
                 icon={amenity.icon}
                 color="darkPurple"
                 hideButton
-                className="max-w-[220px] p-4"
+                className="w-full p-4"
               />
             ))}
           </div>

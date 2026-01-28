@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 export interface StaggeredMenuItem {
   label: string;
@@ -47,8 +47,18 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   onMenuClose,
 }: StaggeredMenuProps) => {
   const [open, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const closeTimerRef = useRef<number | null>(null);
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
   const isStaticHeader = headerMode === "static";
+
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current !== null) {
+        window.clearTimeout(closeTimerRef.current);
+      }
+    };
+  }, []);
 
   const handleLinkClick = useCallback(
     (href: string, e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -60,17 +70,33 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         window.location.href = href;
       }
       setOpen(false);
+      setIsVisible(false);
       onMenuClose?.();
     },
     [onMenuClose]
   );
 
   const handleToggle = useCallback(() => {
-    setOpen((prev) => {
+    setOpen(prev => {
       const next = !prev;
-      if (next) onMenuOpen?.();
-      else onMenuClose?.();
-      return next;
+      if (closeTimerRef.current !== null) {
+        window.clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+
+      if (next) {
+        setIsVisible(true);
+        onMenuOpen?.();
+        return true;
+      }
+
+      // Animate out, then unmount after transition
+      onMenuClose?.();
+      closeTimerRef.current = window.setTimeout(() => {
+        setIsVisible(false);
+        closeTimerRef.current = null;
+      }, 520);
+      return false;
     });
   }, [onMenuClose, onMenuOpen]);
 
@@ -112,18 +138,15 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       <div
         className="staggered-menu-wrapper pointer-events-none relative z-40"
         data-position={position}
-        data-open={open || undefined}
+        data-open={(open || isVisible) || undefined}
         style={accentColor ? ({ ["--sm-accent" as any]: accentColor } as React.CSSProperties) : undefined}
       >
         {/* Overlay */}
-        {open && (
+        {isVisible && (
           <button
             type="button"
             aria-label="Close menu"
-            onClick={() => {
-              setOpen(false);
-              onMenuClose?.();
-            }}
+            onClick={handleToggle}
             className="fixed left-0 right-0 bottom-0 z-[60] bg-black/40"
             style={overlayStyle}
           />
@@ -179,6 +202,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             WebkitBackdropFilter: "blur(12px)",
             ...panelStyle,
             transform: slideTransform,
+            opacity: isVisible ? 1 : 0,
+            visibility: isVisible ? "visible" : "hidden",
+            pointerEvents: open ? "auto" : "none",
           }}
           aria-hidden={!open}
         >
@@ -244,8 +270,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 .sm-scope .sm-toggle-glass { transition: background 0.25s ease, border-color 0.25s ease; }
 .sm-scope .sm-toggle:focus-visible { outline: none; }
 .sm-scope .sm-icon-line { background: currentColor; }
-.sm-scope .staggered-menu-panel { opacity: 0; visibility: hidden; pointer-events: none; }
-.sm-scope [data-open] .staggered-menu-panel { opacity: 1; visibility: visible; pointer-events: auto; }
+.sm-scope .staggered-menu-panel { }
 .sm-scope .sm-panel-item:hover { color: var(--sm-accent, #8B5CF6); }
 .sm-scope .sm-socials-link:hover { color: var(--sm-accent, #8B5CF6); }
 .sm-scope .sm-prelayers { opacity: 0; visibility: hidden; }

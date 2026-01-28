@@ -20,7 +20,7 @@ const Navbar = () => {
   ];
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/45 backdrop-blur-xl">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-black/45 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)]">
       <div className="w-full px-4 sm:px-8">
         <div className="flex h-16 items-center">
           {/* Left: SRM */}
