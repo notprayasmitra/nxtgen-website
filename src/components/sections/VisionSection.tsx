@@ -123,7 +123,7 @@ const VisionSection = () => {
             />
           </h2>
           <div className="max-w-4xl mx-auto">
-            <p className="text-xl md:text-2xl text-white/80 font-medium mb-12 leading-relaxed">
+            <p className="text-xl md:text-2xl text-white/90 font-medium mb-12 leading-relaxed drop-shadow-[0_1px_10px_rgba(0,0,0,0.35)]">
               NXTGEN'26 - Transforming Tomorrow Through Innovation
             </p>
           </div>
@@ -134,27 +134,27 @@ const VisionSection = () => {
           {visionCards.map((card, index) => (
             <div
               key={index}
-              className="group relative h-80 md:h-96 rounded-3xl overflow-hidden bg-black/50 backdrop-blur-xl border-2 border-white/20 shadow-2xl shadow-black/40 hover:shadow-glow hover:scale-[1.02] transition-all duration-500 cursor-pointer"
+              className="group relative h-80 md:h-96 rounded-3xl overflow-hidden bg-black/70 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/50 hover:shadow-glow hover:scale-[1.02] transition-all duration-500 cursor-pointer"
             >
               {/* Shine overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 group-hover:animate-shine transition-all duration-700 z-10" />
 
               {/* Card content */}
-              <div className="relative z-20 h-full p-8 md:p-10 flex flex-col justify-between text-white">
+              <div className="relative z-20 h-full p-8 md:p-10 flex flex-col text-white overflow-hidden">
                 {/* Title */}
                 <div className="mb-6">
-                  <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white/90 to-white/60 bg-clip-text text-transparent drop-shadow-lg mb-3 text-center">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.45)] mb-3 text-center">
                     {card.title}
                   </h3>
                   <div className="w-full h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
                 </div>
 
                 {/* Items */}
-                <ul className="space-y-3 flex-1">
+                <ul className="space-y-3 flex-1 min-h-0 overflow-y-auto pr-2">
                   {card.items.map((item, itemIndex) => (
                     <li
                       key={itemIndex}
-                      className="text-sm md:text-base text-white/90 leading-relaxed flex items-start group-hover:text-white transition-colors"
+                      className="text-sm md:text-base text-white/95 leading-relaxed flex items-start transition-colors"
                     >
                       <span className="text-emerald-400 mr-3 flex-shrink-0 font-bold text-lg mt-0.5">
                         ✓

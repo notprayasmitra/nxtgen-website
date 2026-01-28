@@ -146,38 +146,6 @@ const HeroSection = ({ onVideoFadeStart }: HeroSectionProps = {} as HeroSectionP
       className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-transparent"
       id="hero"
     >
-      {/* SRM Logo - Top Left Corner */}
-      <div
-        className={`fixed top-4 left-4 z-30 rounded-full px-3 py-2 transition-colors duration-500 transition-opacity ${
-          showTopGlass
-            ? "bg-white/10 backdrop-blur-md border border-white/15"
-            : "bg-transparent border border-transparent"
-        } ${showTexusLogo ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-      >
-        <img
-          src="/assets/logo/srm1.png"
-          alt="SRM Logo"
-          className="h-8 sm:h-10 md:h-[55px] w-auto"
-        />
-      </div>
-
-      {/* TEXUS Logo - Top Middle */}
-      <div
-        className={`fixed top-4 right-4 sm:inset-x-0 sm:mx-auto sm:w-fit z-30 transition-opacity duration-500 rounded-full px-3 py-2 transition-colors duration-500 ${
-          showTexusLogo ? "opacity-100" : "opacity-0 pointer-events-none"
-        } ${
-          showTopGlass
-            ? "bg-white/10 backdrop-blur-md border border-white/15"
-            : "bg-transparent border border-transparent"
-        }`}
-      >
-        <img
-          src="/assets/logo/texus.png"
-          alt="TEXUS Logo"
-          className="h-8 sm:h-10 md:h-[53.33px] w-auto"
-        />
-      </div>
-
       {/* Video overlay - plays once then fades out smoothly */}
       {!isMobile && (
         <video

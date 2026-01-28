@@ -6,6 +6,9 @@
   font-display: swap;
 }
 
+/* JetBrains Mono for body text */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @font-face {
   font-family: 'Clash';
   src: url('/assets/fonts/Clash.ttf') format('truetype');
@@ -129,7 +132,7 @@
   body {
     @apply text-foreground font-body antialiased;
     background: #000000;
-    font-family: 'Clash', sans-serif;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   }
 
   h1, h2, h3, h4, h5, h6 {
